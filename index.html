@@ -9,6 +9,7 @@
       margin-top: 100px;
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
+      overflow: hidden;
     }
     button {
       padding: 12px 25px;
@@ -27,6 +28,15 @@
       color: white;
       position: absolute;
     }
+    .emoji {
+      position: absolute;
+      font-size: 30px;
+      animation: caer 2s linear infinite;
+    }
+    @keyframes caer {
+      0% {transform: translateY(-100px);}
+      100% {transform: translateY(100vh);}
+    }
   </style>
 </head>
 <body>
@@ -42,17 +52,22 @@
 
 <script>
 function aceptar() {
-  document.body.innerHTML = `
-    <h1>Sabía que aceptarías 😏<br>Te escribo para coordinar 👀</h1>
-    <img src="https://media.tenor.com/2roX3uxz_68AAAAM/cat-jump.gif" width="200">
-  `;
+  document.body.innerHTML = "<h1>Sabía que aceptarías 😏<br>Te escribo para coordinar 👀</h1>";
+  
+  for (let i = 0; i < 20; i++) {
+    let emoji = document.createElement("div");
+    emoji.className = "emoji";
+    emoji.innerHTML = "🐱";
+    emoji.style.left = Math.random() * window.innerWidth + "px";
+    emoji.style.animationDuration = (Math.random() * 2 + 1) + "s";
+    document.body.appendChild(emoji);
+  }
 }
 
 function mover() {
   let x = Math.random() * (window.innerWidth - 120);
   let y = Math.random() * (window.innerHeight - 60);
   let btn = document.getElementById("no");
-  btn.style.position = "absolute";
   btn.style.left = x + "px";
   btn.style.top = y + "px";
 }
