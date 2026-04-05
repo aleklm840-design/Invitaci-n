@@ -6,11 +6,10 @@
 
 <style>
   body {
-    font-family: Arial, sans-serif;
-    text-align: center;
     margin: 0;
+    font-family: Arial, sans-serif;
     overflow: hidden;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    background: linear-gradient(135deg, #e0eafc, #cfdef3);
   }
 
   .pantalla {
@@ -19,6 +18,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 2;
+    text-align: center;
   }
 
   h2 {
@@ -55,7 +57,6 @@
   #mensajeFinal {
     font-size: 26px;
     color: #333;
-    text-align: center;
     white-space: pre-line;
     animation: aparecer 0.6s ease;
   }
@@ -65,6 +66,30 @@
     to { opacity: 1; transform: scale(1); }
   }
 
+  /* BURBUJAS FONDO */
+  .burbujas {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .burbujas span {
+    position: absolute;
+    bottom: -50px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    animation: subir 10s linear infinite;
+  }
+
+  @keyframes subir {
+    to {
+      transform: translateY(-110vh);
+    }
+  }
+
+  /* EMOJIS */
   .emoji {
     position: absolute;
     top: -50px;
@@ -82,6 +107,8 @@
 </head>
 <body>
 
+<div class="burbujas"></div>
+
 <!-- PANTALLA 1 -->
 <div id="pantalla1" class="pantalla">
   <h2>👨‍🍳 Se mi catadora 
@@ -92,7 +119,7 @@ Oferta: almuerzo este sábado preparado por mí
 ¿Aceptas? 🙄</h2>
 
   <button id="si">Sí 😇</button>
-  <button id="no">No 🥹</button>
+  <button id="no">No 😅</button>
 </div>
 
 <!-- PANTALLA 2 -->
@@ -109,7 +136,7 @@ const siBtn = document.getElementById("si");
 
 let size = 18;
 
-// botón NO escapa
+// NO escapa
 noBtn.addEventListener("mouseover", escapar);
 noBtn.addEventListener("touchstart", escapar);
 
@@ -120,13 +147,12 @@ function escapar() {
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 
-  // crecer botón SI
   size += 5;
   siBtn.style.fontSize = size + "px";
   siBtn.style.padding = (size/2) + "px " + size + "px";
 }
 
-// al presionar SI
+// cambio de pantalla
 siBtn.addEventListener("click", () => {
   document.getElementById("pantalla1").style.display = "none";
   document.getElementById("pantalla2").style.display = "flex";
@@ -134,24 +160,38 @@ siBtn.addEventListener("click", () => {
   lluviaEmojis();
 });
 
-// lluvia de emojis
+// lluvia emojis
 function lluviaEmojis() {
-  const emojis = ["🐱", "🍜"];
+  const emojis = ["🐱","🍜"];
 
   setInterval(() => {
     const emoji = document.createElement("div");
     emoji.classList.add("emoji");
-    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    emoji.innerText = emojis[Math.floor(Math.random()*emojis.length)];
 
     emoji.style.left = Math.random() * 100 + "vw";
-    emoji.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    emoji.style.animationDuration = (Math.random()*3+2) + "s";
 
     document.body.appendChild(emoji);
 
-    setTimeout(() => {
-      emoji.remove();
-    }, 5000);
+    setTimeout(() => emoji.remove(), 5000);
   }, 200);
+}
+
+// burbujas fondo
+const contenedor = document.querySelector(".burbujas");
+
+for (let i = 0; i < 20; i++) {
+  const burbuja = document.createElement("span");
+
+  const size = Math.random() * 40 + 10;
+
+  burbuja.style.width = size + "px";
+  burbuja.style.height = size + "px";
+  burbuja.style.left = Math.random() * 100 + "%";
+  burbuja.style.animationDuration = (Math.random()*10 + 5) + "s";
+
+  contenedor.appendChild(burbuja);
 }
 </script>
 
