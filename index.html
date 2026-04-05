@@ -2,66 +2,97 @@
 <html>
 <head>
   <title>Invitación 👀</title>
+
+  <!-- Fuente más pro -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
   <style>
     body {
-      text-align: center;
-      font-family: Arial;
-      margin-top: 100px;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
-      overflow: hidden;
     }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: aparecer 0.8s ease;
+    }
+
+    @keyframes aparecer {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
     button {
       padding: 12px 25px;
-      font-size: 18px;
+      font-size: 16px;
       margin: 10px;
-      cursor: pointer;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s;
     }
+
     #si {
-      background-color: #2ecc71;
+      background: #2ecc71;
       color: white;
     }
+
+    #si:hover {
+      transform: scale(1.1);
+    }
+
     #no {
-      background-color: #555;
+      background: #555;
       color: white;
       position: absolute;
-    }
-    .emoji {
-      position: absolute;
-      font-size: 30px;
-      animation: caer 2s linear infinite;
-    }
-    @keyframes caer {
-      0% {transform: translateY(-100px);}
-      100% {transform: translateY(100vh);}
     }
   </style>
 </head>
+
 <body>
 
-<h1>Se busca catadora profesional 👨‍🍳😏</h1>
-<p>Requisito: sobrevivir a mi cocina 🧪</p>
-<p>Oferta: almuerzo este sábado preparado por mí</p>
+<div class="card">
+  <h1>👨‍🍳 Se busca catadora</h1>
+  <p>Requisito: sobrevivir a mi cocina 🧪</p>
+  <p>Oferta: almuerzo este sábado preparado por mí</p>
 
-<h2>¿Aceptas el reto? 😏</h2>
+  <h3>¿Aceptas el reto? 😏</h3>
 
-<button id="si" onclick="aceptar()">Sí 😇</button>
-<button id="no" onmouseover="mover()" ontouchstart="mover()" onclick="mover()">No 😢</button>
+  <button id="si" onclick="aceptar()">Sí 😇</button>
+  <button id="no" onmouseover="mover()" ontouchstart="mover()" onclick="mover()">No 😢</button>
+</div>
 
 <script>
 function aceptar() {
-  document.body.innerHTML = "<h1>Sabía que aceptarías 😏<br>Te escribo para coordinar 👀</h1>";
-  
-  for (let i = 0; i < 20; i++) {
-    let emoji = document.createElement("div");
-    emoji.className = "emoji";
-    emoji.innerHTML = "🐱";
-    emoji.style.left = Math.random() * window.innerWidth + "px";
-    emoji.style.animationDuration = (Math.random() * 2 + 1) + "s";
-    document.body.appendChild(emoji);
-  }
+  document.body.innerHTML = `
+    <div style="text-align:center; font-family:Poppins; margin-top:100px;">
+      <h1>Sabía que aceptarías 😏</h1>
+      <p>Te escribo para coordinar 👀</p>
+      <div style="font-size:40px; animation: bounce 1s infinite;">🐱</div>
+    </div>
+
+    <style>
+      @keyframes bounce {
+        0%,100% {transform: translateY(0);}
+        50% {transform: translateY(-20px);}
+      }
+    </style>
+  `;
 }
 
 function mover() {
