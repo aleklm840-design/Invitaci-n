@@ -1,132 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Invitación 👀</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      overflow: hidden;
-      background: linear-gradient(-45deg, #667eea, #764ba2, #6a85b6, #b993d6);
-      background-size: 400% 400%;
-      animation: fondo 10s ease infinite;
-    }
-
-    @keyframes fondo {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.12);
-      padding: 35px;
-      border-radius: 20px;
-      backdrop-filter: blur(12px);
-      text-align: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-      animation: aparecer 0.8s ease;
-    }
-
-    @keyframes aparecer {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    h1 {
-      margin-bottom: 10px;
-    }
-
-    button {
-      padding: 12px 25px;
-      font-size: 16px;
-      margin: 10px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.25s;
-    }
-
-    #si {
-      background: #2ecc71;
-      color: white;
-    }
-
-    #si:hover {
-      transform: scale(1.1);
-    }
-
-    #no {
-      background: #444;
-      color: white;
-      position: absolute;
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="card">
-  <h1>👨‍🍳 Se busca catadora</h1>
-  <p>Requisito: sobrevivir a mi cocina 🧪</p>
-  <p>Oferta: almuerzo este sábado preparado por mí</p>
-
-  <h3>¿Aceptas el reto? 😏</h3>
-
-  <button id="si" onclick="aceptar()">Sí 😇</button>
-  <button id="no" onmouseover="mover()" ontouchstart="mover()" onclick="mover()">No 😢</button>
-</div>
-
-<script>
-function aceptar() {
-  document.body.innerHTML = `
-    <div style="text-align:center; font-family:Poppins; margin-top:100px;">
-      <h1 style="animation: pop 0.4s ease;">Sabía que aceptarías 😏</h1>
-      <p>Te escribo para coordinar 👀</p>
-    </div>
-  `;
-
-  // emojis flotando (puedes cambiar 🍝🐱)
-  for (let i = 0; i < 15; i++) {
-    let e = document.createElement("div");
-    e.innerHTML = "🍝";
-    e.style.position = "absolute";
-    e.style.left = Math.random() * window.innerWidth + "px";
-    e.style.top = window.innerHeight + "px";
-    e.style.fontSize = "24px";
-    e.style.animation = "subir 3s linear forwards";
-    document.body.appendChild(e);
+<meta charset="UTF-8">
+<title>Pregunta importante</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 100px;
+    overflow: hidden;
   }
 
-  let style = document.createElement("style");
-  style.innerHTML = `
-    @keyframes subir {
-      0% {transform: translateY(0); opacity: 1;}
-      100% {transform: translateY(-100vh); opacity: 0;}
-    }
-    @keyframes pop {
-      from {transform: scale(0.7); opacity: 0;}
-      to {transform: scale(1); opacity: 1;}
-    }
-  `;
-  document.head.appendChild(style);
-}
+  h2 {
+    font-size: 28px;
+  }
 
-function mover() {
-  let x = Math.random() * (window.innerWidth - 120);
-  let y = Math.random() * (window.innerHeight - 60);
-  let btn = document.getElementById("no");
-  btn.style.left = x + "px";
-  btn.style.top = y + "px";
-}
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    position: absolute;
+    transition: all 0.2s ease;
+  }
+
+  #si {
+    position: static;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+
+<h2>¿Quieres salir conmigo? 😳</h2>
+
+<button id="si">Sí 💖</button>
+<button id="no">No 😅</button>
+
+<script>
+const noBtn = document.getElementById("no");
+const siBtn = document.getElementById("si");
+
+let size = 18;
+
+noBtn.addEventListener("mouseover", () => {
+  // mover el botón NO
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  // hacer crecer el botón SI
+  size += 5;
+  siBtn.style.fontSize = size + "px";
+  siBtn.style.padding = (size / 2) + "px " + size + "px";
+});
 </script>
 
 </body>
