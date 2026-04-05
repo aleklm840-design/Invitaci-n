@@ -1,13 +1,15 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Invitación especial 👀</title>
+  <title>Invitación 👀</title>
   <style>
     body {
       text-align: center;
       font-family: Arial;
       margin-top: 100px;
-      background-color: #ffe6f0;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
     }
     button {
       padding: 12px 25px;
@@ -18,11 +20,11 @@
       border-radius: 10px;
     }
     #si {
-      background-color: #ff4d6d;
+      background-color: #2ecc71;
       color: white;
     }
     #no {
-      background-color: gray;
+      background-color: #555;
       color: white;
       position: absolute;
     }
@@ -30,24 +32,25 @@
 </head>
 <body>
 
-<h1>Se busca catadora profesional 👩‍🍳⚠️</h1>
+<h1>Se busca catadora profesional 👨‍🍳😏</h1>
 <p>Requisito: sobrevivir a mi cocina 🧪</p>
 <p>Oferta: almuerzo este sábado preparado por mí</p>
 
 <h2>¿Aceptas el reto? 😏</h2>
 
-<button id="si" onclick="aceptar()">Sí 😍</button>
-<button id="no" onmouseover="mover()">No 😢</button>
+<button id="si" onclick="aceptar()">Sí 😇</button>
+<button id="no" onmouseover="mover()" ontouchstart="mover()" onclick="mover()">No 😢</button>
 
 <script>
 function aceptar() {
-  document.body.innerHTML = "<h1>Sabía que aceptarías 😏💖<br>Te escribo para coordinar 👀</h1>";
+  document.body.innerHTML = "<h1>Sabía que aceptarías 😏<br>Te escribo para coordinar 👀</h1>";
 }
 
 function mover() {
-  let x = Math.random() * window.innerWidth;
-  let y = Math.random() * window.innerHeight;
+  let x = Math.random() * (window.innerWidth - 120);
+  let y = Math.random() * (window.innerHeight - 60);
   let btn = document.getElementById("no");
+  btn.style.position = "absolute";
   btn.style.left = x + "px";
   btn.style.top = y + "px";
 }
