@@ -8,9 +8,17 @@
   body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin-top: 100px;
+    margin: 0;
     overflow: hidden;
     background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  }
+
+  .pantalla {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   h2 {
@@ -40,46 +48,68 @@
     position: absolute;
   }
 
-  #mensaje {
+  #pantalla2 {
     display: none;
-    font-size: 22px;
-    margin-top: 30px;
+  }
+
+  #mensajeFinal {
+    font-size: 26px;
     color: #333;
-    animation: aparecer 0.5s ease;
+    text-align: center;
+    white-space: pre-line;
+    animation: aparecer 0.6s ease;
   }
 
   @keyframes aparecer {
     from { opacity: 0; transform: scale(0.8); }
     to { opacity: 1; transform: scale(1); }
   }
+
+  .emoji {
+    position: absolute;
+    top: -50px;
+    font-size: 24px;
+    animation: caer linear infinite;
+  }
+
+  @keyframes caer {
+    to {
+      transform: translateY(110vh);
+    }
+  }
 </style>
 
 </head>
 <body>
 
-<h2>👨‍🍳 Se mi catadora 
+<!-- PANTALLA 1 -->
+<div id="pantalla1" class="pantalla">
+  <h2>👨‍🍳 Se mi catadora 
 Requisito: sobrevivir a mi cocina 🧪
 
 Oferta: almuerzo este sábado preparado por mí
 
 ¿Aceptas? 🙄</h2>
 
-<button id="si">Sí 😇</button>
-<button id="no">No 😅</button>
+  <button id="si">Sí 😇</button>
+  <button id="no">No 😅</button>
+</div>
 
-<div id="mensaje">
-  Sabía que aceptarías 😏<br>
-  Te escribo para coordinar 👀
+<!-- PANTALLA 2 -->
+<div id="pantalla2" class="pantalla">
+  <div id="mensajeFinal">
+    Sabía que aceptarías 😏
+    Te escribo para coordinar 👀
+  </div>
 </div>
 
 <script>
 const noBtn = document.getElementById("no");
 const siBtn = document.getElementById("si");
-const mensaje = document.getElementById("mensaje");
 
 let size = 18;
 
-// mover el NO (PC + celular)
+// botón NO escapa
 noBtn.addEventListener("mouseover", escapar);
 noBtn.addEventListener("touchstart", escapar);
 
@@ -90,16 +120,39 @@ function escapar() {
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 
-  // hacer crecer el botón SI
+  // crecer botón SI
   size += 5;
   siBtn.style.fontSize = size + "px";
   siBtn.style.padding = (size/2) + "px " + size + "px";
 }
 
-// cuando presiona SI
+// al presionar SI
 siBtn.addEventListener("click", () => {
-  mensaje.style.display = "block";
+  document.getElementById("pantalla1").style.display = "none";
+  document.getElementById("pantalla2").style.display = "flex";
+
+  lluviaEmojis();
 });
+
+// lluvia de emojis
+function lluviaEmojis() {
+  const emojis = ["🐱", "🍜"];
+
+  setInterval(() => {
+    const emoji = document.createElement("div");
+    emoji.classList.add("emoji");
+    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+    emoji.style.left = Math.random() * 100 + "vw";
+    emoji.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+    document.body.appendChild(emoji);
+
+    setTimeout(() => {
+      emoji.remove();
+    }, 5000);
+  }, 200);
+}
 </script>
 
 </body>
